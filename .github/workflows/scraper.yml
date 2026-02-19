@@ -1,8 +1,8 @@
 name: Bot Scraper
 on:
   schedule:
-    - cron: '0 * * * *' # Runs every hour
-  workflow_dispatch: # Allows manual run
+    - cron: '0 * * * *' 
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -14,15 +14,25 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: npm install
-      - run: node index.js
+          
+      
+      - name: Force Install Dependencies
+        run: npm install axios puppeteer
+      
+      
+      - name: Install Chrome
+        run: npx puppeteer browsers install chrome
+      
+      - name: Run Scraper
+        run: node index.js
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          
       - name: Commit changes
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add last_posts.json
-          git commit -m "Update last seen posts" || exit 0
+          git add last_posts.json || echo "No changes"
+          git commit -m "Update memory" || exit 0
           git push
