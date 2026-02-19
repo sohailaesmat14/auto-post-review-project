@@ -29,6 +29,7 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          FB_COOKIES: ${{ secrets.FB_COOKIES }}
           
       - name: Commit changes
         run: |
