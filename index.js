@@ -12,11 +12,11 @@ if (fs.existsSync(dataFile)) {
 }
 
 const targets = [
-    { name: 'ITI English', url: 'https://www.facebook.com/groups/1616488856986681', selector: 'div[role="article"]' },
-    { name: 'ITI', url: 'https://www.facebook.com/ITI.eg', selector: 'div[role="article"]' },
-    { name: 'Eh_El_Moshkla', url: 'https://www.youtube.com/@Eh_El_Moshkla/videos', selector: '#video-title' },
-    { name: 'amgad_samir', url: 'https://www.youtube.com/@amgad_samir/videos', selector: '#video-title' },
-    { name: 'Fahem Podcast', url: 'https://www.youtube.com/@Fahem.Podcast/videos', selector: '#video-title' }
+    { name: 'ITI English', url: 'https://www.facebook.com/groups/1616488856986681', selector: 'div[data-ad-comet-preview="message"]', skipFirst: true },
+    { name: 'ITI', url: 'https://www.facebook.com/ITI.eg', selector: 'div[data-ad-comet-preview="message"]', skipFirst: true },
+    { name: 'Eh_El_Moshkla', url: 'https://www.youtube.com/@Eh_El_Moshkla/videos', selector: '#video-title', skipFirst: false },
+    { name: 'amgad_samir', url: 'https://www.youtube.com/@amgad_samir/videos', selector: '#video-title', skipFirst: false },
+    { name: 'Fahem Podcast', url: 'https://www.youtube.com/@Fahem.Podcast/videos', selector: '#video-title', skipFirst: false }
 ];
 
 async function run() {
@@ -29,12 +29,15 @@ async function run() {
     for (let target of targets) {
         try {
             await page.goto(target.url, { waitUntil: 'networkidle2' });
-            const latestContent = await page.evaluate((sel) => {
+            
+            const latestContent = await page.evaluate((sel, skip) => {
                 const elements = document.querySelectorAll(sel);
-                if (elements.length > 1) return elements[1].innerText;
-                if (elements.length === 1) return elements[0].innerText;
-                return null;
-            }, target.selector);
+                if (elements.length === 0) return null;
+                if (skip && elements.length > 1) {
+                    return elements[1].innerText;
+                } 
+                return elements[0].innerText;
+            }, target.selector, target.skipFirst);
 
             if (latestContent && latestContent !== savedData[target.name]) {
                 savedData[target.name] = latestContent;
@@ -54,4 +57,3 @@ async function run() {
 }
 
 run();
-
