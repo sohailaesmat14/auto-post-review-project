@@ -26,6 +26,16 @@ async function run() {
     });
     const page = await browser.newPage();
 
+    if (process.env.FB_COOKIES) {
+        try {
+            const cookies = JSON.parse(process.env.FB_COOKIES);
+            await page.setCookie(...cookies);
+            console.log("Done 🍪");
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
+    }
+    
     for (let target of targets) {
         try {
             await page.goto(target.url, { waitUntil: 'networkidle2' });
@@ -57,3 +67,4 @@ async function run() {
 }
 
 run();
+
