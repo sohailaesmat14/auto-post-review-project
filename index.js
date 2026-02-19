@@ -12,11 +12,11 @@ if (fs.existsSync(dataFile)) {
 }
 
 const targets = [
-    { name: 'ITI English', url: 'https://www.facebook.com/groups/1616488856986681', selector: 'div[data-ad-comet-preview="message"]', skipFirst: true },
-    { name: 'ITI', url: 'https://www.facebook.com/ITI.eg', selector: 'div[data-ad-comet-preview="message"]', skipFirst: true },
-    { name: 'Eh_El_Moshkla', url: 'https://www.youtube.com/@Eh_El_Moshkla/videos', selector: '#video-title', skipFirst: false },
-    { name: 'amgad_samir', url: 'https://www.youtube.com/@amgad_samir/videos', selector: '#video-title', skipFirst: false },
-    { name: 'Fahem Podcast', url: 'https://www.youtube.com/@Fahem.Podcast/videos', selector: '#video-title', skipFirst: false }
+    { name: 'ITI English', url: 'https://www.facebook.com/groups/1616488856986681', selector: 'div[data-ad-comet-preview="message"]', skipCount: 1 },
+    { name: 'ITI', url: 'https://www.facebook.com/ITI.eg', selector: 'div[data-ad-comet-preview="message"]', skipCount: 2 },
+    { name: 'Eh_El_Moshkla', url: 'https://www.youtube.com/@Eh_El_Moshkla/videos', selector: '#video-title', skipCount: 0 },
+    { name: 'amgad_samir', url: 'https://www.youtube.com/@amgad_samir/videos', selector: '#video-title', skipCount: 0 },
+    { name: 'Fahem Podcast', url: 'https://www.youtube.com/@Fahem.Podcast/videos', selector: '#video-title', skipCount: 0 }
 ];
 
 async function run() {
@@ -40,14 +40,14 @@ async function run() {
         try {
             await page.goto(target.url, { waitUntil: 'networkidle2' });
             
-            const latestContent = await page.evaluate((sel, skip) => {
+            const latestContent = await page.evaluate((sel, skipCount) => {
                 const elements = document.querySelectorAll(sel);
                 if (elements.length === 0) return null;
-                if (skip && elements.length > 1) {
-                    return elements[1].innerText;
+                if (elements.length > skipCount) {
+                    return elements[skipCount].innerText; 
                 } 
                 return elements[0].innerText;
-            }, target.selector, target.skipFirst);
+            }, target.selector, target.skipCount);
 
             if (latestContent && latestContent !== savedData[target.name]) {
                 savedData[target.name] = latestContent;
@@ -67,4 +67,5 @@ async function run() {
 }
 
 run();
+
 
