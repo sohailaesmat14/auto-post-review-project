@@ -1,18 +1,14 @@
 {
   "name": "auto-post-review-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "ITI Scraping Bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "express": "^5.2.1",
-    "node-telegram-bot-api": "^0.67.0",
-    "puppeteer": "^24.37.4"
+    "puppeteer": "^21.0.0",
+    "axios": "^1.0.0"
   }
 }
