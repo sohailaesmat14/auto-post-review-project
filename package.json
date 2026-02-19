@@ -1,14 +1,33 @@
-{
-  "name": "auto-post-review-project",
-  "version": "1.0.0",
-  "description": "ITI Scraping Bot",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "type": "commonjs",
-  "dependencies": {
-    "puppeteer": "^21.0.0",
-    "axios": "^1.0.0"
-  }
-}
+name: Bot Scraper
+on:
+  schedule:
+    - cron: '0 * * * *' 
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - run: npm install axios puppeteer
+      
+      - run: npx puppeteer browsers install chrome
+      
+      - run: node index.js
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add last_posts.json || echo "No changes to commit"
+          git commit -m "Update last seen posts" || exit 0
+          git push
