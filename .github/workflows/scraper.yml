@@ -37,4 +37,5 @@ jobs:
           git config --global user.email 'github-actions@github.com'
           git add last_posts.json || echo "No changes"
           git commit -m "Update memory" || exit 0
+          git pull --rebase origin main
           git push
