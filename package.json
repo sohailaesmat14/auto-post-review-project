@@ -8,7 +8,7 @@
   },
   "type": "commonjs",
   "dependencies": {
-    "puppeteer": "^21.0.0",
-    "axios": "^1.0.0"
+    "axios": "^1.13.6",
+    "puppeteer": "^24.37.5"
   }
 }
