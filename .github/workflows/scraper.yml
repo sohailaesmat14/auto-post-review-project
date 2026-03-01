@@ -19,7 +19,9 @@ jobs:
           node-version: '18'
           
       - name: Force Install Dependencies
-        run: npm install axios puppeteer
+        run: npm install axios puppeteer@latest
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: true
       
       - name: Install Chrome for Puppeteer
         run: npx puppeteer browsers install chrome
@@ -29,7 +31,6 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          FB_COOKIES: ${{ secrets.FB_COOKIES }}
           
       - name: Commit changes
         run: |
