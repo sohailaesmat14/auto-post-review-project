@@ -37,6 +37,7 @@ If you want to fork and run this bot for your own personal use, follow these ste
 git clone [https://github.com/YOUR_USERNAME/your-repo-name.git](https://github.com/YOUR_USERNAME/your-repo-name.git)
 cd your-repo-name
 npm install
+```
 
 ### 2. Setup Telegram Bot
 Go to Telegram and search for @BotFather.
