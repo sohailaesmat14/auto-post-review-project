@@ -1,4 +1,5 @@
 # 📡 Your Posts of Interest (Telegram Automation Bot)
+<img width="2545" height="1536" alt="Gemini_Generated_Image_5vf6el5vf6el5vf6" src="https://github.com/user-attachments/assets/54984526-9423-4233-b774-1cfa088888a9" />
 
 An automated web scraping bot built with Node.js and Puppeteer. This bot acts as a personal radar, monitoring specific Facebook groups, Facebook pages, and YouTube channels. Whenever new content is published, it sends a real-time push notification directly to your Telegram app.
 
@@ -34,8 +35,8 @@ If you want to fork and run this bot for your own personal use, follow these ste
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/YOUR_USERNAME/your-repo-name.git](https://github.com/YOUR_USERNAME/your-repo-name.git)
-cd your-repo-name
+git clone [https://github.com/sohailaesmat14/auto-post-review-project.git](https://github.com/sohailaesmat14/auto-post-review-project.git)
+cd auto-post-review-project
 npm install
 ```
 
