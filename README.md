@@ -70,4 +70,4 @@ Use the skipCount property to ignore pinned posts:
 The FB_COOKIES secret grants full access to your Facebook session. Never share this string publicly. It is highly recommended to keep this repository Private or ensure your secrets are strictly managed within GitHub's environment.
 
 👤 Author
-Developed by [Your Name/Sohaila] as a personal productivity and automation tool.
+Developed by Sohaila as a personal productivity and automation tool.
